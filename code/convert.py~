@@ -11,7 +11,7 @@ def convertToBinary(dVal):
 #Summary: This function converts a character to its correlated asci value
 #Preconditiion: Pass in a character
 #Postcondtion: Returns decimal number representing Asci value of that character
-def convertToAsci(ch)
+def convertToAsci(ch):
 	asciVal = ord(ch)
 	return asciVal
 

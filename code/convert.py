@@ -7,7 +7,6 @@ def convertToBinary(dVal):
 	binNum = "{0:b}".format(dVal)
 	return binNum
 
-
 #Summary: This function converts a character to its correlated asci value
 #Preconditiion: Pass in a character
 #Postcondtion: Returns decimal number representing Asci value of that character
