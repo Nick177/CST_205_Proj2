@@ -20,11 +20,4 @@ def convertToAsci(ch):
 def convertToDecimal(bVal):
 	decVal = int(bVal, 2)
 	return decVal
-#Summary: returns the binary number needed with all 0
-lengthx=len(convertToBinary(10))
-def checkEight (lengthx):
-	neededZeros=8-lengthx
-	for i in range (0, neededZeros):
-		result=result+'0'
-        binNumber=result+binNum
-        return binNumber
+
