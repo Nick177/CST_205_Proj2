@@ -16,7 +16,7 @@ width, height = im.size
 #This copy will be used as the changed image
 jm = im.copy()
 
-msg = "The code runs fine!!!"
+msg = "hi"
 
 msgLength = len(msg)
 
@@ -30,45 +30,42 @@ for ix in range(0, msgLength):
 	#asciOfLetter = convertToAsci(msg[ix])
 	asciiOfLetter = characterToAscii(msg[ix])
 	#letterBin = convertToBinary(asciOfLetter)
-	letterInBin = decimalToBinary(asciiOfLetter)
+	#
 	#letterBin = checkEight(letterBin)
-	letterInBin = checkEight(letterInBin)
-	print letterInBin
+	letterInBin = checkEight(le
+	print letterBin
 	
 	#This for loop will run 3 times for 3 pixels needed to store a single letter
 	#Essentially, this will encrypt the current letter in our picture
 	for jx in range(0, 3):
 		r, g, b = jm.getpixel((pixX,pixY))
 		
-		#rBin = convertToBinary(r)
-		rBin = decimalToBinary(r)
-		#gBin = convertToBinary(g)
-		gBin = decimalToBinary(g)
-		#bBin = convertToBinary(b)
-		bBin = decimalToBinary(b)
+		rBin = convertToBinary(r)
+		gBin = convertToBinary(g)
+		bBin = convertToBinary(b)
 		print(rBin, gBin, bBin)
 		
 		
 		if nextIndex < 8:
-			r =  changeLeastSig(r, letterInBin[nextIndex])
+			r =  changeLeastSig(r, letterBin[nextIndex])
 			nextIndex = nextIndex + 1
 		if nextIndex < 8:
-			g = changeLeastSig(g, letterInBin[nextIndex])
+			g = changeLeastSig(g, letterBin[nextIndex])
 			nextIndex = nextIndex + 1
 		if nextIndex < 8:
-			b = changeLeastSig(b, letterInBin[nextIndex])
+			b = changeLeastSig(b, letterBin[nextIndex])
 			nextIndex = nextIndex + 1
-
-		#rBin = convertToBinary(r)
-		rBin = decimalToBinary(r)
-		#gBin = convertToBinary(g)
-		gBin = decimalToBinary(g)
-		#bBin = convertToBinary(b)
-		bBin = decimalToBinary(b)
+		"""
+		r = convertToDecimal(rBin)
+		g = converToDecimal(gBin)
+		b = converToDecimal(bBin)
+		"""
+		rBin = convertToBinary(r)
+		gBin = convertToBinary(g)
+		bBin = convertToBinary(b)
 		print(rBin, gBin, bBin)
 
-		#jm.putpixel((jx + pixX, 0 + pixY), (r, g, b))
-		jm.putpixel((pixX, pixY), (r,g,b))
+		jm.putpixel((jx + pixX, 0 + pixY), (r, g, b))
 	
 		if(pixX == width):
 			pixX = 0
