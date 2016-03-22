@@ -3,30 +3,21 @@
 #Summary: This function converts a decimal value to binary format
 #Precondition: Pass in a decimal value
 #Postcondition: Returns binary string of decimal value passed in
-def decimalToBinary(dVal):
-#def convertToBinary(dVal):
+def convertToBinary(dVal):
 	binNum = "{0:b}".format(dVal)
 	return binNum
 
 #Summary: This function converts a character to its correlated asci value
 #Preconditiion: Pass in a character
 #Postcondtion: Returns decimal number representing Asci value of that character
-def characterToAscii(ch):
-#def convertToAsci(ch):
+def convertToAsci(ch):
 	asciVal = ord(ch)
 	return asciVal
-	
-def asciiToCharacter(asciiVal):
-#def convertToCharacter(asciiVal):
-	letter = chr(asciiVal)
-	return letter
-	
 
 #Summary: This function converts a binary value to decimal format
 #Precondiition: Pass in binary value
 #Postcondtion: Returns decimal value representing the binary value passed in
-def binaryToDecimal(bVal):
-#def convertToDecimal(bVal):
+def convertToDecimal(bVal):
 	decVal = int(bVal, 2)
 	return decVal
 

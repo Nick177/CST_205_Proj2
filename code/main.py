@@ -1,6 +1,6 @@
 from PIL import Image
-import myConvert
-import manip
+from myConvert import *
+from manip import *
 
 
 #The following 2 variables are used to navigate thru the picture's pixels
@@ -53,12 +53,12 @@ for ix in range(0, msgLength):
 		g = converToDecimal(gBin)
 		b = converToDecimal(bBin)
 
-		jm.putpixel((jx + pixX), 0 + pixY), (r, g, b))
+		jm.putpixel((jx + pixX, 0 + pixY), (r, g, b))
 	
 	
-	if(pixX <= width)
+	if(pixX <= width):
 		pixX = pixX + 3
-	else
+	else:
 		pixX = 0
 		pixY = pixY + 1
 	
@@ -78,7 +78,7 @@ for ix in range(0, msgLength):
 
 
 #Summary: returns the binary number needed with all 0
-lengthx=len(convertToBinary(10))
+#lengthx=len(convertToBinary(10))
 
 
 jm.save('newPic', 'PNG')
