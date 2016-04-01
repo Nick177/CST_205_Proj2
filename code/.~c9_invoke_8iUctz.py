@@ -27,60 +27,67 @@ nextIndex = 0
 #below is a for loop that will iterate  thru the individual letters
 #in a message (takes one letter at a time)
 for ix in range(0, msgLength):
-	asciOfLetter = convertToAsci(msg[ix])
-	letterBin = convertToBinary(asciOfLetter)
-	letterBin = checkEight(letterBin)
+	#asciOfLetter = convertToAsci(msg[ix])
+	asciiOfLetter = characterToAscii(msg[ix])
+	#letterBin = convertToBinary(asciOfLetter)
+	#
+	#letterBin = checkEight(letterBin)
+	letterInBin = checkEight(le
+	print letterBin
 	
 	#This for loop will run 3 times for 3 pixels needed to store a single letter
 	#Essentially, this will encrypt the current letter in our picture
 	for jx in range(0, 3):
-		r, g, b = jm.getpixel((0,0))
+		r, g, b = jm.getpixel((pixX,pixY))
+		
 		rBin = convertToBinary(r)
 		gBin = convertToBinary(g)
 		bBin = convertToBinary(b)
+		print(rBin, gBin, bBin)
+		
 		
 		if nextIndex < 8:
-			rBin =  changeLeastSig(rbin, letterBin[nextIndex])
+			r =  changeLeastSig(r, letterBin[nextIndex])
 			nextIndex = nextIndex + 1
 		if nextIndex < 8:
-			gBin = changeLeastSig(gBin, letterBin[nextIndex])
+			g = changeLeastSig(g, letterBin[nextIndex])
 			nextIndex = nextIndex + 1
 		if nextIndex < 8:
-			bBin = changeLeastSig(bBin, letterBin[nextIndex])
+			b = changeLeastSig(b, letterBin[nextIndex])
 			nextIndex = nextIndex + 1
-		
+		"""
 		r = convertToDecimal(rBin)
 		g = converToDecimal(gBin)
 		b = converToDecimal(bBin)
+		"""
+		rBin = convertToBinary(r)
+		gBin = convertToBinary(g)
+		bBin = convertToBinary(b)
+		print(rBin, gBin, bBin)
 
 		jm.putpixel((jx + pixX, 0 + pixY), (r, g, b))
 	
+		if(pixX == width):
+			pixX = 0
+			pixY = pixY + 1
+		else:
+			pixX = pixX + 1
 	
-	if(pixX <= width):
-		pixX = pixX + 3
-	else:
-		pixX = 0
-		pixY = pixY + 1
 	
 	#reassign nextIndex to 0 to be ready for next binary string of next letter
 	nextIndex = 0
-		
-
-		
-
 	
 	
-
-#r, g, b = rgb_im.getPixel((x, y))
-
-
+print("Finished")
+		
 
 
-
-#Summary: returns the binary number needed with all 0
-#lengthx=len(convertToBinary(10))
+jm.save('../Pictures/newPic.png', 'PNG')
 
 
-jm.save('newPic', 'PNG')
-
-
+print(im.getpixel((0,0)))
+print(im.getpixel((1,0)))
+print(im.getpixel((2,0)))
+print(jm.getpixel((0,0)))
+print(jm.getpixel((1,0)))
+print(jm.getpixel((2,0)))

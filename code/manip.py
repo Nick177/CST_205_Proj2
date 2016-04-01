@@ -1,5 +1,6 @@
 from myConvert import *
 
+#makes the string a length of 8
 def checkEight(x):
 	lengthx = len(x)
 	neededZeros=8-lengthx
@@ -10,20 +11,18 @@ def checkEight(x):
 	result=result+x
 	return result
 
+#Changes the least significant value in the binary string
 def changeLeastSig(DecimalColor, binaryLetter):
-	#convert decimal color to binary string to compare last character to binaryLetter
-	#1 convert decimal color to binary string
-	#2 Check if last character equals binaryLetter
-	#3 if so then change 2nd least sig and convert back to decimal
-	#4 if not then just use following if statements
 	binColor = decimalToBinary(DecimalColor)
 	binColor = checkEight(binColor)
 	
+	#changes least sig value if different from orginal value
 	if(binColor[7] != binaryLetter):
 		if binaryLetter=='1':
 			DecimalColor=DecimalColor|1	
 		if binaryLetter=='0':
 			DecimalColor=DecimalColor&254
+	#changes second least sig value if the least sig was the same
 	else:
 		if(binColor[6] == '1'):
 			l = list(binColor)
@@ -35,7 +34,3 @@ def changeLeastSig(DecimalColor, binaryLetter):
 			binColor = ''.join(l)
 		DecimalColor = binaryToDecimal(binColor)
 	return DecimalColor
-		
-	
-		
-	

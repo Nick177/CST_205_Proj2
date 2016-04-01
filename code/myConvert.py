@@ -4,7 +4,6 @@
 #Precondition: Pass in a decimal value
 #Postcondition: Returns binary string of decimal value passed in
 def decimalToBinary(dVal):
-#def convertToBinary(dVal):
 	binNum = "{0:b}".format(dVal)
 	return binNum
 
@@ -12,12 +11,10 @@ def decimalToBinary(dVal):
 #Preconditiion: Pass in a character
 #Postcondtion: Returns decimal number representing Asci value of that character
 def characterToAscii(ch):
-#def convertToAsci(ch):
 	asciVal = ord(ch)
 	return asciVal
 	
 def asciiToCharacter(asciiVal):
-#def convertToCharacter(asciiVal):
 	letter = chr(asciiVal)
 	return letter
 	
@@ -26,7 +23,5 @@ def asciiToCharacter(asciiVal):
 #Precondiition: Pass in binary value
 #Postcondtion: Returns decimal value representing the binary value passed in
 def binaryToDecimal(bVal):
-#def convertToDecimal(bVal):
 	decVal = int(bVal, 2)
 	return decVal
-

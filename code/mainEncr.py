@@ -1,117 +1,93 @@
 from PIL import Image
 from myConvert import *
 from manip import *
+import os
+
+def encrypt(im, msg):
+    #The following 2 variables are used to navigate thru the picture's pixels
+    # x coordinate
+    pixX = 0
+    # y coordinate
+    pixY = 0
+
+    im = im.convert('RGB')
+    width, height = im.size
+
+    #Copies original image
+    #This copy will be used as the changed image
+    jm = im.copy()
+    jm = jm.convert('RGB')
 
 
-#The following 2 variables are used to navigate thru the picture's pixels
-# x coordinate
-pixX = 0
-# y coordinate
-pixY = 0
+    msgLength = len(msg)
 
-#opens saved image which will be used for encrypting
-im = Image.open('../Pictures/1.png')
+    #The following variable will be used in the inner for loop
+    #It will go thru the indexes of the binary string of the current letter
+    nextIndex = 0
 
-#holds width/size of original image
-width, height = im.size
+    #below is a for loop that will iterate  thru the individual letters
+    #in our secret message (takes one letter at a time)
+    for ix in range(0, msgLength):
+        asciiOfLetter = characterToAscii(msg[ix])
+        letterInBin = decimalToBinary(asciiOfLetter)
+        letterInBin = checkEight(letterInBin)
 
-#Copies original image
-#This copy will be used as the changed image
-jm = im.copy()
+        #This for loop will run 3 times for 3 pixels needed to store a single letter
+        #Essentially, this will encrypt the current letter in our picture
+        for jx in range(0, 3):
+            r, g, b = jm.getpixel((pixX,pixY))
 
-#holds message which will be encrypted
-msg = "This is multimedia project two not one"
+            rBin = decimalToBinary(r)
+            gBin = decimalToBinary(g)
+            bBin = decimalToBinary(b)
 
-#holds length of encrypted message
-msgLength = len(msg)
-
-#The following variable will be used in the inner for loop
-#It will go thru the indexes of the binary string of the current letter
-nextIndex = 0
-
-#below is a for loop that will iterate  thru the individual letters
-#in a message (takes one letter at a time)
-for ix in range(0, msgLength):
-	#asciOfLetter = convertToAsci(msg[ix])
-	asciiOfLetter = characterToAscii(msg[ix])
-	#letterBin = convertToBinary(asciOfLetter)
-	letterInBin = decimalToBinary(asciiOfLetter)
-	#letterBin = checkEight(letterBin)
-	letterInBin = checkEight(letterInBin)
-	##print letterInBin
 	
-	#This for loop will run 3 times for 3 pixels needed to store a single letter
-	#Essentially, this will encrypt the current letter in our picture
-	for jx in range(0, 3):
-		r, g, b = jm.getpixel((pixX,pixY))
-		
-		#rBin = convertToBinary(r)
-		rBin = decimalToBinary(r)
-		#gBin = convertToBinary(g)
-		gBin = decimalToBinary(g)
-		#bBin = convertToBinary(b)
-		bBin = decimalToBinary(b)
-		##print(rBin, gBin, bBin)
-		
-		
-		if nextIndex < 8:
-			r =  changeLeastSig(r, letterInBin[nextIndex])
-			nextIndex = nextIndex + 1
-		if nextIndex < 8:
-			g = changeLeastSig(g, letterInBin[nextIndex])
-			nextIndex = nextIndex + 1
-		if nextIndex < 8:
-			b = changeLeastSig(b, letterInBin[nextIndex])
-			nextIndex = nextIndex + 1
+            if nextIndex < 8:
+                r =  changeLeastSig(r, letterInBin[nextIndex])
+                nextIndex = nextIndex + 1
+            if nextIndex < 8:
+                g = changeLeastSig(g, letterInBin[nextIndex])
+                nextIndex = nextIndex + 1
+            if nextIndex < 8:
+                b = changeLeastSig(b, letterInBin[nextIndex])
+                nextIndex = nextIndex + 1
 
-		#rBin = convertToBinary(r)
-		rBin = decimalToBinary(r)
-		#gBin = convertToBinary(g)
-		gBin = decimalToBinary(g)
-		#bBin = convertToBinary(b)
-		bBin = decimalToBinary(b)
-		##print(rBin, gBin, bBin)
+            rBin = decimalToBinary(r)
+            gBin = decimalToBinary(g)
+            bBin = decimalToBinary(b)
 
-		#jm.putpixel((jx + pixX, 0 + pixY), (r, g, b))
-		jm.putpixel((pixX, pixY), (r,g,b))
-	
-		if(pixX == width):
-			pixX = 0
-			pixY = pixY + 1
-		else:
-			pixX = pixX + 1
-	
-	
-	#reassign nextIndex to 0 to be ready for next binary string of next letter
-	nextIndex = 0
-	
-	
-print("Finished")
-		
+            jm.putpixel((pixX, pixY), (r,g,b))
+
+            if(pixX == width):
+                pixX = 0
+                pixY = pixY + 1
+            else:
+                pixX = pixX + 1
 
 
-jm.save('../Pictures/newPic.png', 'PNG')
+        #reassign nextIndex to 0 to be ready for next binary string of next letter
+        nextIndex = 0
+    """
+    The following block of code saves the original picture
+    in the 'Original_Pics' directory for easy access.
+    Likewise, it does the same for the encrypted picture
+    """
+    currentDirectory = os.getcwd()
+    newPath = currentDirectory + '/Original_Pics/'
+    
+    if not os.path.exists(newPath):
+        os.makedirs(newPath)
+        im.save(newPath + '/original.png', 'PNG')
+    else:
+        im.save(newPath + 'original.png', 'PNG')
 
-"""
-print(im.getpixel((0,0)))
-print(im.getpixel((1,0)))
-print(im.getpixel((2,0)))
-print(jm.getpixel((0,0)))
-print(jm.getpixel((1,0)))
-print(jm.getpixel((2,0)))
+    newPath = currentDirectory + '/Encrypted_Pics/'
+    
+    if not os.path.exists(newPath):
+        os.makedirs(newPath)
+        jm.save(newPath + '/picWithMSG.png', 'PNG')
+    else:
+        jm.save(newPath + 'picWithMSG.png', 'PNG')
 
-print(im.getpixel((3,0)))
-print(jm.getpixel((3,0)))
-"""
 
-r, g, b = im.getpixel((3,0))
-r = decimalToBinary(r)
-g = decimalToBinary(g)
-b = decimalToBinary(b)
-print(r, g, b)
-
-r,g,b=jm.getpixel((3,0))
-r = decimalToBinary(r)
-g = decimalToBinary(g)
-b = decimalToBinary(b)
-print(r,g,b)
+    return jm
